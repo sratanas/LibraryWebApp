@@ -1,0 +1,12 @@
+﻿@model MyLibraryWebApp.ViewModels.BookEditModel;
+
+@{     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Book.Title</h1>
+
+<div>@Model.Book.Id</div>
+
+<div>@Model.Book.Genre.GenreName</div>
+
+<a asp-action="Index" asp-controller="Home">Home</a>

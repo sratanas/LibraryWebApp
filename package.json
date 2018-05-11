@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "MyLibraryWebApp",
+  "private": true,
+  "devDependencies": {
+  },
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "angular": "1.6.10"
+  }
+}
