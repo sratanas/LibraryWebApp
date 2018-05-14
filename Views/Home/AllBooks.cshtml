@@ -1,0 +1,22 @@
+﻿@model MyLibraryWebApp.ViewModels.HomeIndexViewModel
+
+@{
+    ViewBag.Title = "Home page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All Books</h1>
+<table>
+    @foreach (var book in Model.Books)
+    {
+        <tr>
+            <td>@book.Title</td>
+
+            <td>
+                <a href="/home/details/@book.Type/@book.Id">Details</a>
+            </td>
+        </tr>
+
+    }
+</table>
+<a asp-action="Create">Add Book</a>

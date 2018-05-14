@@ -24,7 +24,7 @@ namespace MyLibraryWebApp
             services.AddSingleton<IGreeter, Greeter>();
             //scoped typically what you want for data access
             //Whenever someone needs an instance of IBookData, create an instance for each http request throw away when done, give them InMemoryBookData
-            services.AddSingleton<IBookData, InMemoryBookData>();
+           // services.AddSingleton<IBookData, InMemoryBookData>();
             services.AddMvc();
                         
         }

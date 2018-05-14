@@ -1,25 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.Data;
-using MyLibraryWebApp.Services;
 using MyLibraryWebApp.ViewModels;
 
 namespace MyLibraryWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private IBookData _bookData;
-        private IGreeter _greeter;
 
-        //home controller getting some object that implements IBookData and will deliver 
-        public HomeController(IBookData bookdata, IGreeter greeter)
-        {
-            _bookData = bookdata;
-            _greeter = greeter;
-
-        }
 
         //Get request using database
         public IActionResult Index()
+        {
+            //var bookRepo = new BookRepository();
+            //var model = new HomeIndexViewModel();
+            //model.Books = bookRepo.GetBooks();
+
+
+            return View();
+        }
+        [HttpGet]
+        [Route("/home/authorbooks/{id}")]
+        public IActionResult AuthorBooks(int id)
+        {
+        
+            var model = new AuthorViewModel();
+            var repo = new BookRepository();
+            model.AuthorBookList = repo.GetBooksByAuthor(id);
+
+            return View(model);
+        }
+
+        //[HttpGet]
+        //public IActionResult Index(string searchParam)
+        //{
+        //    var model = new AuthorViewModel();
+        //    model.Author = AuthorRepository.GetAuthorSearchResults(searchParam);
+
+        //    return View(model);
+        //}
+
+
+
+        [HttpGet]
+        public IActionResult AllBooks()
         {
             var bookRepo = new BookRepository();
             var model = new HomeIndexViewModel();
@@ -29,16 +52,6 @@ namespace MyLibraryWebApp.Controllers
             return View(model);
         }
 
-        //public IActionResult Index()
-        //{
-
-        //    var model = new HomeIndexViewModel();
-        //    model.Books = _bookData.GetAll();
-
-
-
-        //    return View(model);
-        //}
 
         [Route("home/details/{type}/{id}")]
         public IActionResult Details(Book book)
@@ -48,8 +61,7 @@ namespace MyLibraryWebApp.Controllers
                 model.Book = bookRepo.GetBookById(book);
 
 
-                return View(model);
-           
+                return View(model);         
 
         }
 
@@ -59,9 +71,11 @@ namespace MyLibraryWebApp.Controllers
             var genreRepo = new GenreRepository();
             var model = new BookEditModel();
             model.GenreList = genreRepo.GetAllGenres();
-            model.AuthorList = AuthorRepository.GetAllAuthors(); 
+            model.AuthorList = AuthorRepository.GetAllAuthors();
 
-
+            var location = new LocationRepository();
+            model.LocationList = location.GetAllLocations();
+          
             return View(model);
         }
 
@@ -76,6 +90,10 @@ namespace MyLibraryWebApp.Controllers
                 var newBook = new Book();
                 newBook.Title = model.Title;
                 newBook.Genre = model.Genre;
+                newBook.Author = model.Author;
+                newBook.Location = model.Location;
+                newBook.YearPublished = model.YearPublished;
+                newBook.Type = model.Type;
 
                 bookRepo.AddBook(newBook);
 
@@ -88,5 +106,7 @@ namespace MyLibraryWebApp.Controllers
 
 
         }
+
+
     }
 }

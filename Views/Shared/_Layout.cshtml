@@ -5,13 +5,39 @@
     <meta name="viewport" content="width=device-width" />
 
     <script src="~/node_modules/angular/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">My Library</h1>
+            <p class="lead">A little app to organize books in our house.</p>
+            <p>
+            </p>
+            
+            <ul class="nav nav-pills card-header-pills">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/allbooks">See All Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Something</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
     <div class="container">
         @RenderBody()
     </div>
-
+    <footer>
+        Hello Footer
+    </footer>
 </body>
 </html>

@@ -1,5 +1,4 @@
-﻿@using MyLibraryWebApp.Models
-@model MyLibraryWebApp.ViewModels.BookEditModel
+﻿@model MyLibraryWebApp.ViewModels.BookEditModel
 
 
 @{
@@ -9,26 +8,58 @@
 
 <form method="post">
 
+
+
     <div>
         <label asp-for="Title"></label>
         <input asp-for="Title" />
         <span asp-validation-for="Title"></span>
     </div>
-    <div>
-        
-    </div>
+
+    <br />
 
     <div>
-        <label asp-for="Genre"></label>
-        <select name="Genres">
+        Genre:
+        <select name="Genre.Id">
             @foreach (var item in Model.GenreList)
             {
-                <option value="@item.GenreName">@item.GenreName</option>
+                <option value="@item.Id">@item.GenreName</option>
             }
         </select>
-        <span asp-validation-for="Genre"></span>
     </div>
-
-    <input type="submit" name="save" value="save" />
+    <br />
+    <div>
+        Location:
+        <select name="Location.Id">
+            @foreach (var item in Model.LocationList)
+            {
+                <option value="@item.Id">@item.LocationName</option>
+            }
+        </select>
+    </div>
+    <br />
+    <div>
+        Author:
+        <select name="Author.Id">
+            @foreach (var item in Model.AuthorList)
+            {
+                <option value="@item.Id">@item.FullAuthorName</option>
+            }
+        </select>
+    </div>
+    <br />
+    <div>
+        <label asp-for="YearPublished"></label>
+        <input asp-for="YearPublished" />
+        <span asp-validation-for="YearPublished"></span>
+    </div>
+    <br />
+    <div>
+        Type:
+        Book   @Html.RadioButton("Type", "Book")
+        AudioBook @Html.RadioButton("Type", "AudioBook")
+    </div>
+    <br />
+    <button type="submit" name="save" value="save">Submit</button>
 
 </form>

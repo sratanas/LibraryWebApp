@@ -1,0 +1,24 @@
+﻿@model MyLibraryWebApp.ViewModels.AuthorViewModel
+@{
+    ViewData["Title"] = "AuthorSearchResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AuthorSearchResults</h2>
+@*<h3>Books By @Model.Book.Author.FullAuthorName.FirstOrDefault()</h3>*@
+<table>
+    @foreach (var book in Model.AuthorBookList)
+    {
+        <tr>
+            <td>@book.Title</td>
+
+            <td>
+                <a href="/home/details/@book.Type/@book.Id">Details</a>
+            </td>
+        </tr>
+
+    }
+</table>
+
+
+
