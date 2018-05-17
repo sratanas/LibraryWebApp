@@ -8,64 +8,94 @@ namespace MyLibraryWebApp.Controllers
     {
 
 
-        //Get request using database
         public IActionResult Index()
         {
-            //var bookRepo = new BookRepository();
-            //var model = new HomeIndexViewModel();
-            //model.Books = bookRepo.GetBooks();
-
 
             return View();
         }
+
+
+        public IActionResult AuthorResult(string searchType, string searchInput)
+        {
+            var model = new AuthorViewModel();
+            model.Author = AuthorRepository.GetAuthorSearchResults(searchInput);
+
+            return View(model);
+        }
+
+        //This returns the correct string
+        //public string AuthorSearch(string searchType, string searchInput)
+        //{
+           
+
+        //    return "The Author was " + searchInput + " The search type was "+searchType;
+        //}
+
         [HttpGet]
         [Route("/home/authorbooks/{id}")]
         public IActionResult AuthorBooks(int id)
         {
         
             var model = new AuthorViewModel();
-            var repo = new BookRepository();
-            model.AuthorBookList = repo.GetBooksByAuthor(id);
+            var _bookRepo = new BookRepository();
+
+            model.AuthorBookList = _bookRepo.GetBooksByAuthor(id);
 
             return View(model);
         }
 
-        //[HttpGet]
-        //public IActionResult Index(string searchParam)
-        //{
-        //    var model = new AuthorViewModel();
-        //    model.Author = AuthorRepository.GetAuthorSearchResults(searchParam);
 
-        //    return View(model);
-        //}
 
 
 
         [HttpGet]
         public IActionResult AllBooks()
         {
-            var bookRepo = new BookRepository();
+            var _bookRepo = new BookRepository();
+
             var model = new HomeIndexViewModel();
-            model.Books = bookRepo.GetBooks();
+            model.Books = _bookRepo.GetBooks();
 
 
             return View(model);
         }
 
-
+        [HttpGet]
         [Route("home/details/{type}/{id}")]
         public IActionResult Details(Book book)
         {
-            var bookRepo = new BookRepository();
+            var _bookRepo = new BookRepository();
+
             var model = new BookEditModel();
-                model.Book = bookRepo.GetBookById(book);
+                model.Book = _bookRepo.GetBookById(book);
 
 
                 return View(model);         
 
         }
+        //public Task<IActionResult> AddToFavorites(IFavorites favorite)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        FavoritesRepository.AddToFavorites(favorite);
+
+        //        return View();
+        //    }
+        //}
+
+
+        //[ActionName("Details")]
+        //[HttpPut]
+        //public IActionResult AddToFavorites(IFavorites favorite)
+        //{
+        //   FavoritesRepository.AddToFavorites(favorite);
+
+        //    return Ok();
+
+        //}
 
         [HttpGet]
+        [Route("/home/create")]
         public IActionResult Create()
         {
             var genreRepo = new GenreRepository();
@@ -78,6 +108,8 @@ namespace MyLibraryWebApp.Controllers
           
             return View(model);
         }
+
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,12 +1,35 @@
 ﻿@model MyLibraryWebApp.ViewModels.BookEditModel;
 
-@{     Layout = "~/Views/Shared/_Layout.cshtml";
+@{ Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.Book.Title</h1>
+<h2>@Model.Book.Title</h2>
 
-<div>@Model.Book.Id</div>
+<div>Author: @Model.Book.Author.FullAuthorName</div>
 
-<div>@Model.Book.Genre.GenreName</div>
+<div>Genre: @Model.Book.Genre.GenreName</div>
 
-<a asp-action="Index" asp-controller="Home">Home</a>
+<div>Year Published: @Model.Book.YearPublished</div>
+
+<br />
+<div>
+
+    @*<button type="button" onclick="location.href='@Url.Action("AddToFavorites", "Home")'" />*@
+
+</div>
+    <a asp-action="Index" asp-controller="Home">Home</a>
+
+
+    @*<script>
+        $(document).ready(function () {
+
+            $('#addToFavorites').on('click', checkAnswer);
+
+            function checkAnswer() {
+                console.log("hello")
+            }
+
+
+        });
+
+    </script>*@

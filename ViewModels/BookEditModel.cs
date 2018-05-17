@@ -19,5 +19,6 @@ namespace MyLibraryWebApp.ViewModels
         public IEnumerable<Genre> GenreList { get; set; }
         public IEnumerable<Author> AuthorList { get; set; }
         public IEnumerable<Location> LocationList { get; set; }
+        public IFavorites Favorite { get; set; }
     }
 }

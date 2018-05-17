@@ -13,32 +13,23 @@
 
 
 
-                <form>
+                <form method="get" action="@Url.Action("AuthorResult", "Home")">
                     <p class="card-text">
 
-                        <fieldset class="form-group">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Author" checked>
-                                    Author
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Title">
-                                    Title
-                                </label>
-                            </div>
-
-                        </fieldset>
+                        <div>
+                            Search by:
+                            Author   @Html.RadioButton("SearchType", "Author")
+                            Title @Html.RadioButton("SearchType", "Title")
+                        </div>
                     </p>
+
+
+                    <input type="text" value="" name="SearchInput" class="form-control" id="searchBox" aria-describedby="searchBox" placeholder="Enter Author or Title">
+                    <br />
+                    <button type="submit"  class="btn btn-primary">Search</button>
+
                 </form>
-
-
-                <input type="text" class="form-control" id="searchBox" aria-describedby="searchBox" placeholder="Enter Author or Title">
-                <br />
-                <button type="submit" class="btn btn-primary">Search</button>
-
+       
 
             </div>
         </div>
@@ -67,23 +58,24 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Author Resuts</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    @*@Model.Author.FullAuthorName*@
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
+</div>
