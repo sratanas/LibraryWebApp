@@ -10,14 +10,14 @@ namespace MyLibraryWebApp.Controllers
         {
             return View();
         }
-
+        [Route("/MyFavorites")]
         [HttpGet]
         public IActionResult MyFavorites()
         {
             var repo = new FavoritesRepository();
             var model = new FavoritesViewModel();
 
-            model.Favorites = repo.GetAllFavorites();
+            model.FavoritesBigList = repo.GetAllFavorites();
             
             return  View(model);
         }

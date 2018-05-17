@@ -1,15 +1,13 @@
-﻿@model MyLibraryWebApp.ViewModels.AuthorViewModel
+﻿@model MyLibraryWebApp.ViewModels.TitleResultsViewModel
 @{
-    ViewData["Title"] = "AuthorResult";
+    ViewData["Title"] = "TitleResult";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Book Results</h2>
 
-<h3>@Model.Author.FullAuthorName</h3>
-
-<p><strong>Books by this author:</strong></p>
 <table>
-    @foreach (var book in Model.AuthorBookList)
+    @foreach (var book in Model.BooksByTitle)
     {
         <tr>
             <td>@book.Title</td>
@@ -22,4 +20,3 @@
     }
 </table>
 
-<p>@Model.Message</p>

@@ -15,5 +15,7 @@ namespace MyLibraryWebApp.ViewModels
         [FromQuery]
         public string SearchInput { get; set; }
         public IEnumerable<Book> AuthorBookList { get; set; }
+        public string Message { get; set; }
+
     }
 }

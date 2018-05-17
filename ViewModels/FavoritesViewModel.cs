@@ -1,5 +1,6 @@
 ﻿using MyLibrary.Data;
 using System.Collections.Generic;
+using System.Data;
 
 namespace MyLibraryWebApp.ViewModels
 {
@@ -9,5 +10,7 @@ namespace MyLibraryWebApp.ViewModels
        public string Type { get; set; }
        public string Title { get; set; }
        public IEnumerable<Book> Favorites { get; set; }
+       public DataTable FavoritesSet { get; set; }
+       public List<List<IFavorites>> FavoritesBigList { get; set; }
     }
 }

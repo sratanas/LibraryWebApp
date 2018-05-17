@@ -17,19 +17,31 @@ namespace MyLibraryWebApp.Controllers
 
         public IActionResult AuthorResult(string searchType, string searchInput)
         {
-            var model = new AuthorViewModel();
-            model.Author = AuthorRepository.GetAuthorSearchResults(searchInput);
+            if (searchType == "Author")
+            {
+                var model = new AuthorViewModel();
+                model.Author = AuthorRepository.GetAuthorSearchResults(searchInput);
+                model.AuthorBookList = new BookRepository().GetBooksByAuthor(model.Author.Id);
 
-            return View(model);
+                return View("AuthorResult", model);
+            }
+            else if (searchType == "Title")
+            {
+                var model = new TitleResultsViewModel();
+                model.BooksByTitle = new BookRepository().SearchTitles(searchInput);
+
+                return View("TitleResult", model);
+            }
+            else
+            {
+                return Content("No results found");
+            }
+
         }
 
-        //This returns the correct string
-        //public string AuthorSearch(string searchType, string searchInput)
-        //{
-           
 
-        //    return "The Author was " + searchInput + " The search type was "+searchType;
-        //}
+
+
 
         [HttpGet]
         [Route("/home/authorbooks/{id}")]
