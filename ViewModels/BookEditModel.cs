@@ -1,6 +1,8 @@
 ﻿
 using MyLibrary.Data;
+using MyLibraryWebApp.Goodreads;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace MyLibraryWebApp.ViewModels
 {
@@ -20,5 +22,8 @@ namespace MyLibraryWebApp.ViewModels
         public IEnumerable<Author> AuthorList { get; set; }
         public IEnumerable<Location> LocationList { get; set; }
         public IFavorites Favorite { get; set; }
+
+        [XmlElement("GoodreadsXML")]
+        public List<GoodreadsResponse> goodreadsList = new List<GoodreadsResponse>();
     }
 }

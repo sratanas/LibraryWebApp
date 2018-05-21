@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyLibrary.Data;
 using MyLibraryWebApp.ViewModels;
+using System.Collections.Generic;
 
 namespace MyLibraryWebApp.Controllers
 {
@@ -17,11 +18,20 @@ namespace MyLibraryWebApp.Controllers
             var repo = new FavoritesRepository();
             var model = new FavoritesViewModel();
 
-            model.FavoritesBigList = repo.GetAllFavorites();
-            
+
+            model.TupleList = repo.GetAllFavorites();
+
+
             return  View(model);
         }
 
+        
+        //public IActionResult AddToFavorites(IFavorites favorite)
+        //{
+        //    FavoritesRepository.AddToFavorites(favorite);
+
+        //   return 
+        //}
 
     }
 }

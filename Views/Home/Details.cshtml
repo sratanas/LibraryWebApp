@@ -1,4 +1,4 @@
-﻿@model MyLibraryWebApp.ViewModels.BookEditModel;
+﻿@model MyLibraryWebApp.ViewModels.BookEditModel
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,22 +14,9 @@
 <br />
 <div>
 
-    @*<button type="button" onclick="location.href='@Url.Action("AddToFavorites", "Home")'" />*@
+    <button type="button" name="FavoriteButton" value="@Model.Book" onclick="location.href='@Url.Action("AddToFavorites", "Favorites")'" />
 
 </div>
     <a asp-action="Index" asp-controller="Home">Home</a>
 
 
-    @*<script>
-        $(document).ready(function () {
-
-            $('#addToFavorites').on('click', checkAnswer);
-
-            function checkAnswer() {
-                console.log("hello")
-            }
-
-
-        });
-
-    </script>*@

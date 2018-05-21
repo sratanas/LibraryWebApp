@@ -7,9 +7,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
-
-    <script src="~/Scripts/script.js"></script>
 
     <title>@ViewBag.Title</title>
 </head>
@@ -41,45 +38,39 @@
     <div class="container">
         @RenderBody()
     </div>
-    <!--Footer-->
-    <footer class="page-footer font-small blue pt-4 mt-4">
-        <div class="container" background-color="gray">
-            <!--Footer Links-->
-            <div class="container-fluid text-center text-md-left">
-                <div class="row">
-
-                    <!--First column-->
-                    <div class="col-md-6">
-                        <h5 class="text-uppercase">My Library</h5>
-
-                    </div>
-                    <!--/.First column-->
-                    <!--Second column-->
-                    <div class="col-md-6">
-                        <h5 class="text-uppercase">Resources</h5>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a href="#!">Link 1</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 2</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 3</a>
-                            </li>
-                            <li>
-                                <a href="#!">Link 4</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--/.Second column-->
-                </div>
-            </div>
-            <!--/.Footer Links-->
-        </div>
-
-    </footer>
-    <!--/.Footer-->
-
 </body>
 </html>
+
+<!--Footer-->
+<footer class="page-footer font-small  pt-4 mt-4" style="background-color:#808080">
+    <div class="container">
+        <!--Footer Links-->
+        <div class="container-fluid text-center text-md-left" >
+            <div class="row">
+
+                <!--First column-->
+                <div class="col-md-6">
+                    <h5 class="text-uppercase">My Library</h5>
+
+                </div>
+                <!--/.First column-->
+                <!--Second column-->
+                <div class="col-md-6">
+                    <h5 class="text-uppercase">Resources</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.Second column-->
+            </div>
+        </div>
+        <!--/.Footer Links-->
+    </div>
+
+</footer>
+<!--/.Footer-->

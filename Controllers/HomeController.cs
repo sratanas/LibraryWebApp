@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using MyLibrary.Data;
+using MyLibraryWebApp.Services;
 using MyLibraryWebApp.ViewModels;
 
 namespace MyLibraryWebApp.Controllers
@@ -77,10 +79,10 @@ namespace MyLibraryWebApp.Controllers
         public IActionResult Details(Book book)
         {
             var _bookRepo = new BookRepository();
-
             var model = new BookEditModel();
                 model.Book = _bookRepo.GetBookById(book);
 
+           
 
                 return View(model);         
 
@@ -151,6 +153,6 @@ namespace MyLibraryWebApp.Controllers
 
         }
 
-
+      
     }
 }
