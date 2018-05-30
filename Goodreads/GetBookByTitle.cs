@@ -39,8 +39,7 @@ namespace MyLibraryWebApp.Goodreads
                 TextReader sr = new StringReader(xml);
                // FileStream myFileStream =new FileStream(xml, );
                 // Call the Deserialize method and cast to the object type.  
-                myObject = (GoodreadsResponse)
-                mySerializer.Deserialize(sr);
+                myObject = (GoodreadsResponse)mySerializer.Deserialize(sr);
 
                 return myObject;
             };

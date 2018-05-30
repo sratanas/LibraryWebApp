@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyLibraryWebApp.Goodreads;
 using MyLibraryWebApp.Services;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace MyLibraryWebApp.Controllers
 {

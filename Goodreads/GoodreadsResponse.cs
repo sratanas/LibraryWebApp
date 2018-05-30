@@ -20,6 +20,17 @@ namespace MyLibraryWebApp.Goodreads
 
         [XmlElement("title")]
         public string title { get; set; }
-        //public string description { get; set; }
+
+        [XmlElement("description")]
+        public string description { get; set; }
+
+        [XmlElement("image_url")]
+        public string image_url { get; set; }
+
+        [XmlElement("num_pages")]
+        public string num_pages { get; set; }
+
+        [XmlElement("average_rating")]
+        public string average_rating { get; set; }
     }
 }

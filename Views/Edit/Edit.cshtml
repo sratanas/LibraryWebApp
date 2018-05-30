@@ -1,0 +1,72 @@
+﻿@model MyLibraryWebApp.ViewModels.BookEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+
+<form method="post">
+
+    <div>
+        <label asp-for="Title"></label>
+        <input asp-for="@Model.Book.Title" />
+
+        @*<span asp-validation-for="Title"></span>*@
+    </div>
+
+    <br />
+
+    <div>
+        Genre:
+        test
+        <select name="Genre.Id">
+            <option value="@Model.Book.Genre.Id">@Model.Book.Genre.GenreName</option>
+            @foreach (var item in Model.GenreList)
+             {
+            <option value="@Model.Book.Genre.Id">@item.GenreName</option>
+
+             }
+        </select>
+    </div>
+    <br />
+    <div>
+        Location:
+
+        <select name="Location.Id">
+            <option value="@Model.Book.Location.Id">@Model.Book.Location.LocationName</option>
+            @foreach (var item in Model.LocationList)
+              {
+            <option value="@item.Id">@item.LocationName</option>
+              }
+        </select>
+    </div>
+    <br />
+    <div>
+        Author:
+        <select name="Author.Id">
+            <option value="@Model.Book.Author.Id">@Model.Book.Author.FullAuthorName</option>
+            @foreach (var item in Model.AuthorList)
+             {
+            <option value="@item.Id">@item.FullAuthorName</option>
+            }
+        </select>
+    </div>
+    <br />
+    <div>
+        <label asp-for="YearPublished"></label>
+        <input asp-for="@Model.Book.YearPublished" />
+        <span asp-validation-for="YearPublished"></span>
+    </div>
+    <br />
+    <div>
+        
+        Type:
+        Book   @Html.RadioButton("Type", "Book")
+        AudioBook @Html.RadioButton("Type", "AudioBook")
+    </div>
+    <br />
+    <button type="submit" name="save" value="save">Submit</button>
+
+</form>

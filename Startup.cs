@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyLibrary.Data;
 using MyLibraryWebApp.Goodreads;
 using MyLibraryWebApp.Services;
 
@@ -22,12 +23,16 @@ namespace MyLibraryWebApp
         public void ConfigureServices(IServiceCollection services)
         {
             //first generic type registers type of service you are registering, second tells about implementation for that interface
-            services.AddSingleton<IGreeter, Greeter>();
             //scoped typically what you want for data access
             //Whenever someone needs an instance of IBookData, create an instance for each http request throw away when done, give them InMemoryBookData
             // services.AddSingleton<IBookData, InMemoryBookData>();
             services.AddSingleton<IGoodreadsServices, GoodreadsServices>();
             services.AddSingleton<IGetBookByTitle, GetBookByTitle>();
+            services.AddSingleton<IBookDataService, BookDataService>();
+           // services.AddSingleton<IBookRepository, BookRepository>();
+            services.AddSingleton<IAuthorRepository, AuthorRepository>();
+            services.AddSingleton<IGenreRepository, GenreRepository>();
+            services.AddSingleton<ILocationRepository, LocationRepository>();
             services.AddMvc();
                         
         }
@@ -35,7 +40,6 @@ namespace MyLibraryWebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, 
                               IHostingEnvironment env,
-                              IGreeter greeter,
                               ILogger<Startup> logger)
         {
             var builder = new ConfigurationBuilder()

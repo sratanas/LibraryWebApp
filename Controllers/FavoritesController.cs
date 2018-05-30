@@ -2,6 +2,7 @@
 using MyLibrary.Data;
 using MyLibraryWebApp.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MyLibraryWebApp.Controllers
 {
@@ -25,13 +26,15 @@ namespace MyLibraryWebApp.Controllers
             return  View(model);
         }
 
-        
-        //public IActionResult AddToFavorites(IFavorites favorite)
-        //{
-        //    FavoritesRepository.AddToFavorites(favorite);
 
-        //   return 
-        //}
+        public IActionResult AddToFavorites<T>( T favorite)
+            where T : IFavorites
+        {
+
+            FavoritesRepository.AddToFavorites(favorite);
+            
+            return new EmptyResult();
+        }
 
     }
 }

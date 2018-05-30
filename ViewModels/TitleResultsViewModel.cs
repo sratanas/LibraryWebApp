@@ -12,6 +12,7 @@ namespace MyLibraryWebApp.ViewModels
         public Genre Genre { get; set; }
         public Location Location { get; set; }
         public string Type { get; set; }
-        public IEnumerable<Book> BooksByTitle { get; set; }
+        public string IsFavorite { get; set; }
+        public IEnumerable<IBook> BooksByTitle { get; set; }
     }
 }

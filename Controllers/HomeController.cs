@@ -1,14 +1,21 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using MyLibrary.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyLibraryWebApp.Goodreads;
+using MyLibraryWebApp.Models;
 using MyLibraryWebApp.Services;
 using MyLibraryWebApp.ViewModels;
+using System.Linq;
 
 namespace MyLibraryWebApp.Controllers
 {
+
     public class HomeController : Controller
     {
+        private readonly IBookDataService _bookDataService;
 
+        public HomeController(IBookDataService bookDataService)
+        {
+            _bookDataService = bookDataService;
+        }
 
         public IActionResult Index()
         {
@@ -22,15 +29,14 @@ namespace MyLibraryWebApp.Controllers
             if (searchType == "Author")
             {
                 var model = new AuthorViewModel();
-                model.Author = AuthorRepository.GetAuthorSearchResults(searchInput);
-                model.AuthorBookList = new BookRepository().GetBooksByAuthor(model.Author.Id);
-
+                model.Author = _bookDataService.GetAuthorSearchResults(searchInput);
+                model.AuthorBookList = _bookDataService.GetBooksByAuthor(model.Author.Id);
                 return View("AuthorResult", model);
             }
             else if (searchType == "Title")
             {
                 var model = new TitleResultsViewModel();
-                model.BooksByTitle = new BookRepository().SearchTitles(searchInput);
+                model.BooksByTitle = _bookDataService.SearchTitles(searchInput);
 
                 return View("TitleResult", model);
             }
@@ -42,33 +48,47 @@ namespace MyLibraryWebApp.Controllers
         }
 
 
-
-
-
+        //USING REPOSITORY METHOD
         [HttpGet]
         [Route("/home/authorbooks/{id}")]
         public IActionResult AuthorBooks(int id)
         {
-        
-            var model = new AuthorViewModel();
-            var _bookRepo = new BookRepository();
 
-            model.AuthorBookList = _bookRepo.GetBooksByAuthor(id);
+            var model = new AuthorViewModel();
+            model.AuthorBookList = _bookDataService.GetBooksByAuthor(id);
 
             return View(model);
         }
 
+        //USING LINQ
+        //[HttpGet]
+        //[Route("/home/authorbooks/{id}")]
+        //public IActionResult AuthorBooks(int id)
+        //{
 
+        //    var model = new AuthorViewModel();
+        //    var bookRepo = new BookRepository();
 
+        //    model.AuthorBookList = from b in bookRepo.GetBooks()
+        //                           where b.Author.Id == id
+        //                           orderby b.Title ascending
+        //                           select b;
+
+        //    return View(model);
+        //}
 
 
         [HttpGet]
         public IActionResult AllBooks()
         {
-            var _bookRepo = new BookRepository();
 
             var model = new HomeIndexViewModel();
-            model.Books = _bookRepo.GetBooks();
+
+            model.Books = from b in _bookDataService.GetBooks()
+                          where b.Title != null
+                          orderby b.Title ascending
+                          select b;
+
 
 
             return View(model);
@@ -76,74 +96,53 @@ namespace MyLibraryWebApp.Controllers
 
         [HttpGet]
         [Route("home/details/{type}/{id}")]
-        public IActionResult Details(Book book)
+        public IActionResult Details(BookModel book)
         {
-            var _bookRepo = new BookRepository();
-            var model = new BookEditModel();
-                model.Book = _bookRepo.GetBookById(book);
 
-           
+            var model = new BookEditViewModel();
 
-                return View(model);         
+            var goodreads = new GetBookByTitle();
+            model.Book = _bookDataService.GetBookById(book);
+            model.goodreadsList = goodreads.ReturnBookBasedOnTitle(model.Book.Title);
+
+            return View(model);         
 
         }
-        //public Task<IActionResult> AddToFavorites(IFavorites favorite)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        FavoritesRepository.AddToFavorites(favorite);
 
-        //        return View();
-        //    }
-        //}
-
-
-        //[ActionName("Details")]
-        //[HttpPut]
-        //public IActionResult AddToFavorites(IFavorites favorite)
-        //{
-        //   FavoritesRepository.AddToFavorites(favorite);
-
-        //    return Ok();
-
-        //}
 
         [HttpGet]
         [Route("/home/create")]
         public IActionResult Create()
         {
-            var genreRepo = new GenreRepository();
-            var model = new BookEditModel();
-            model.GenreList = genreRepo.GetAllGenres();
-            model.AuthorList = AuthorRepository.GetAllAuthors();
+            var model = new BookEditViewModel();
 
-            var location = new LocationRepository();
-            model.LocationList = location.GetAllLocations();
+            model.GenreList = _bookDataService.GetAllGenres();
+            model.AuthorList = _bookDataService.GetAuthors();
+            model.LocationList = _bookDataService.GetLocations();
           
             return View(model);
         }
 
-        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(BookEditModel model)
+        public IActionResult Create(BookEditViewModel model)
         {
-            var bookRepo = new BookRepository();
 
             if (ModelState.IsValid)
             {
-                var newBook = new Book();
+                BookModel newBook = new BookModel();
+
                 newBook.Title = model.Title;
-                newBook.Genre = model.Genre;
-                newBook.Author = model.Author;
-                newBook.Location = model.Location;
+                newBook.Genre = model.Book.Genre;
+                newBook.Author = model.Book.Author;
+                newBook.Location = model.Book.Location;
                 newBook.YearPublished = model.YearPublished;
                 newBook.Type = model.Type;
 
-                bookRepo.AddBook(newBook);
+                _bookDataService.AddBook(newBook);
 
-                return RedirectToAction(nameof(Details), new { id = newBook.Id });
+                return View("Index");
             }
             else
             {
@@ -153,6 +152,5 @@ namespace MyLibraryWebApp.Controllers
 
         }
 
-      
     }
 }

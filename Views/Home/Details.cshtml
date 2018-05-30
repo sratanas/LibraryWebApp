@@ -1,20 +1,81 @@
-﻿@model MyLibraryWebApp.ViewModels.BookEditModel
+﻿@model MyLibraryWebApp.ViewModels.BookEditViewModel
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Book.Title</h2>
 
-<div>Author: @Model.Book.Author.FullAuthorName</div>
 
-<div>Genre: @Model.Book.Genre.GenreName</div>
 
-<div>Year Published: @Model.Book.YearPublished</div>
-
-<br />
 <div>
 
-    <button type="button" name="FavoriteButton" value="@Model.Book" onclick="location.href='@Url.Action("AddToFavorites", "Favorites")'" />
+
+ 
+    <div class="row">
+        <div class="col-md-6">
+            <h3>@Model.Book.Title</h3>
+
+            <div>Author: @Model.Book.Author.FullAuthorName</div>
+
+            <div>Genre: @Model.Book.Genre.GenreName</div>
+
+            <div>Year Published: @Model.Book.YearPublished</div>
+
+            <div>Favorite?: @Model.Book.IsFavorite</div>
+
+            <div>
+                <a href="/home/details/@Model.Book.Type/edit/@Model.Book.Id">Edit Information</a>
+                <button type="submit" name="FavoriteButton" value="@Model.Book" @Url.Action("AddToFavorites<T>", "Favorites")>Add to Favorites</button>
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Information from Goodreads
+                        </th>
+                        
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                    @foreach (var book in @Model.goodreadsList.Result.Books)
+    {
+
+
+                <tr>
+
+                    <td class="table-warning">
+                        <img src="@book.image_url" /> 
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td class="table-warning">
+                        <strong>Pages:  </strong> @book.num_pages<br />
+                        <strong>  Average rating (out of 5):  </strong> @book.average_rating
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td class="table-warning">
+                        @Html.Raw(@book.description)
+
+                    </td>
+
+                </tr>
+}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
     <a asp-action="Index" asp-controller="Home">Home</a>

@@ -1,4 +1,4 @@
-﻿@model MyLibraryWebApp.ViewModels.BookEditModel
+﻿@model MyLibraryWebApp.ViewModels.BookEditViewModel
 
 
 @{
@@ -20,7 +20,7 @@
 
     <div>
         Genre:
-        <select name="Genre.Id">
+        <select name="Book.Genre.Id">
             @foreach (var item in Model.GenreList)
             {
                 <option value="@item.Id">@item.GenreName</option>
@@ -30,7 +30,7 @@
     <br />
     <div>
         Location:
-        <select name="Location.Id">
+        <select name="Book.Location.Id">
             @foreach (var item in Model.LocationList)
             {
                 <option value="@item.Id">@item.LocationName</option>
@@ -40,7 +40,7 @@
     <br />
     <div>
         Author:
-        <select name="Author.Id">
+        <select name="Book.Author.Id">
             @foreach (var item in Model.AuthorList)
             {
                 <option value="@item.Id">@item.FullAuthorName</option>
